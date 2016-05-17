@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Paraprog Books Online Store</title>
+  <%= stylesheet_link_tag    'application', media: 'all',
+    'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class = '<%= controller.controller_name %>'>
+  <div id = 'banner'>
+    <%= form_tag store_path, class: 'locale' do %>
+      <%= select_tag 'set_locale',
+            options_for_select(LANGUAGES, I18n.locale.to_s),
+            onchange: 'this.form.submit()' %>
+      <%= submit_tag 'submit' %>
+      <%= javascript_tag "$('.locale input').hide()" %>
+    <% end %>
+    <%= image_tag("logo.png") %>
+    <%= page_title %>
+  </div>
+  <div id = 'columns'>
+    <div id = 'side'>
+          <% if @cart %>
+            <%= hidden_div_if(@cart.line_items.empty?, id: 'cart') do %>
+              <%= render @cart %>
+            <% end %>
+          <% end %>
+
+        <ul>
+          <li><%= link_to t('.home'), store_path %></li>
+          <li><a href = "http://www..../faq"><%= t('.questions')%></a></li>
+          <li><a href = "http://www..../news"><%= t('.news')%></a></li>
+          <li><a href = "http://www..../contact"><%= t('.contact')%></a></li>
+          <li><%= unless user_signed_in? then link_to t('.login'), login_path  end%></li>
+        </ul>
+        <% if user_signed_in? %>
+        <ul>
+          <li><%= link_to 'Orders', orders_path %></li>
+          <li><%= link_to 'Products', products_path %></li>
+          <li><%= link_to 'Users', users_path %></li>
+        <li><%= button_to 'Logout', destroy_user_session_path, method: :delete %></li>
+        <% end %>
+        </ul>
+        <span class = 'myAdds'>Current Date:<br/> <%= DateTime.now.to_date %></span>
+        <span class = 'myAdds'><br/>Current Time:<br/> <%= Time.now.strftime("%I:%M %p") %></span>
+    </div>
+    <div id = 'main'>
+	<% if notice %>
+      <p class="notice"><%= notice %></p>
+	<% end %>
+      <p class="alert"><%= alert %></p>
+      <%= yield %>
+    </div>
+  </div>
+</body>
+</html>
