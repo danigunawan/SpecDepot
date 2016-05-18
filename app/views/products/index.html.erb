@@ -1,7 +1,5 @@
 <h1>Listing Products</h1>
-
 <%= will_paginate @products %>
-
 <table>
   <% @products.each do |product| %>
     <tr class="<%= cycle('list_line_odd', 'list_line_even') %>">
@@ -10,6 +8,7 @@
         <dl>
           <dt><%= product.title %></dt>
             <dd><%= truncate(strip_tags(product.description), length: 80) %></dd>
+			<dd>Genre: <%= product.category %></dd>
         </dl>
       </td>
       <td class="list_actions">

@@ -8,6 +8,11 @@
   <%= sanitize(@product.description) %>
 </p>
 
+<p>
+  <strong>Category:</strong>
+  <%= @product.category %>
+</p>
+
 <% unless session[:user_id].nil? %>
 <p>
   <strong>Image url:</strong>

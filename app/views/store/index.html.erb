@@ -1,12 +1,14 @@
 <h1><%= t('.title_html') %></h1>
 
+<%= will_paginate @products %>
+
 <% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
    <% cache ['entry', product] do %>
     <div class="entry">
       <%= image_tag(product.image_url) %>
       <h3><%= link_to product.title, product_path(product.id), method: :put %></h3>
-      <%= truncate(sanitize(product.description), length: 100, escape: false) %>
+      <%= truncate(product.description, length: 100, escape: false) %>
 
         <div class="price_line">
           <span class="price"><%= number_to_currency(product.price) %></span>
@@ -17,3 +19,5 @@
     <% end %>
   <% end %>
 <% end %>
+<br/>
+<%= will_paginate @products %>

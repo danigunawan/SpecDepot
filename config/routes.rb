@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :categories
+
   devise_for :users
   get 'admin' => 'admin#index'
   controller :sessions do

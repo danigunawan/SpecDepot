@@ -26,7 +26,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+  
     respond_to do |format|
       if @user.save
         format.html { redirect_to users_url,
