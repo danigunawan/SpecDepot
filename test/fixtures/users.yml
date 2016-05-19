@@ -2,15 +2,18 @@
 
 one:
   name: dave
+  email: email1@email.com
   password_digest: <%= BCrypt::Password.create('password') %>
   
 
 two:
-  name: susannah
+  name: joe
+  email: email2@email.com
   password_digest: <%= BCrypt::Password.create('secret') %>
   
   
 three:
   name: susan
+  email: email3@email.com
   password_digest: <%= BCrypt::Password.create('secret') %>
  

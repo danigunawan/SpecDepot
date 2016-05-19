@@ -1,9 +1,21 @@
 <h1><%= t('.title_html') %></h1>
 
+<%search_values = ["title", "category"]%>
+
+<%= form_tag(store_path, :method => 'post', :multipart => true) do %>
+<span class = 'searchQuery'>Search: <%= search_field_tag(:search_query) %>
+ Search by: <%= select_tag "search_category", options_for_select(search_values) %> 
+ <%= submit_tag 'Submit' %>
+ <% end %>
+</span>
+
 <%= will_paginate @products %>
 
 <% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
+  
+  <%= puts "Product Parameters: #{product.title}"%>
+  
    <% cache ['entry', product] do %>
     <div class="entry">
       <%= image_tag(product.image_url) %>

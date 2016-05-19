@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 #      sessions: 'users/sessions'
 #  }
 
+
   devise_scope :user do
     get '/login' => 'devise/sessions#new'
   end
@@ -24,6 +25,7 @@ Rails.application.routes.draw do
   resources :users
 
   get 'store/index'
+  
   resources :products do
     get :who_bought, on: :member
     put :show, on: :member
