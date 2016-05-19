@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.order(:title, :category).paginate(page: params[:page], per_page: 4)
+    @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").order("LOWER(name)","LOWER(title)", "price").paginate(page: params[:page], per_page: 4)
   end
 
   # GET /products/1
@@ -29,6 +29,8 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+
+    puts "THE VALUES OF PRODUCT: #{params}"
 
     respond_to do |format|
       if @product.save
@@ -84,7 +86,7 @@ class ProductsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
-      params.require(:product).permit(:title, :description, :category, :image_url, :price)
+      params.require(:product).permit(:title, :description, :category_id, :image_url, :price)
     end
 
 end

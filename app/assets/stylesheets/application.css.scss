@@ -12,7 +12,15 @@
  *
  *= require_tree .
  *= require_self
+ *= require bootstrap.min
  */
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+html{
+	border: 1px solid;
+}
 
 #banner{
   background: #9c9;
@@ -75,7 +83,7 @@
         list-style: none;
         a{
           color: #bfb;
-          font-size: small;
+          font-size: 16px;
         }
       }
     }

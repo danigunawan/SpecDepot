@@ -8,11 +8,13 @@
     <div class="entry">
       <%= image_tag(product.image_url) %>
       <h3><%= link_to product.title, product_path(product.id), method: :put %></h3>
-      <%= truncate(product.description, length: 100, escape: false) %>
+      <p><%= truncate(product.description, length: 100, escape: false) %></p>
+      <p>Genre: <%= product.category.try(:name) %></p>
 
         <div class="price_line">
           <span class="price"><%= number_to_currency(product.price) %></span>
-          <%= button_to t('.add_html'), line_items_path(product_id: product), remote: true %>
+          <%= button_to t('.add_html'), line_items_path(product_id: product), remote: true, 
+		  								class: 'btn-default btn-xs' %>
         <!--  <%= button_to 'Remove from Cart', line_items_path(product_id: product), remote: true %> -->
         </div>
       </div>

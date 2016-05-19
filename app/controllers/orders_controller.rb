@@ -10,7 +10,7 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.json
   def index
-    @orders = Order.all
+    @orders = Order.order("LOWER(name)", "id").paginate(page: params[:page], per_page: 4)
   end
 
   # GET /orders/1

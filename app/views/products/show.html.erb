@@ -1,3 +1,6 @@
+
+<%= puts "\n\n\n\n-----------------This is product values: #{@product}" %>
+
 <p>
   <strong>Title:</strong>
   <%= @product.title %>
@@ -10,7 +13,7 @@
 
 <p>
   <strong>Category:</strong>
-  <%= @product.category %>
+  <%= @product.category.try(:name) %>
 </p>
 
 <% unless session[:user_id].nil? %>
@@ -19,7 +22,6 @@
   <%= @product.image_url %>
 </p>
 <% end %>
-
 
 <p>
   <strong>Price:</strong>

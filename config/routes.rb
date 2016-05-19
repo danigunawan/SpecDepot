@@ -9,6 +9,10 @@ Rails.application.routes.draw do
 #    post 'login' => :create
     delete 'logout' => :destroy
   end
+  
+#  devise_for controllers: {
+#      sessions: 'users/sessions'
+#  }
 
   devise_scope :user do
     get '/login' => 'devise/sessions#new'

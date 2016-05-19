@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'devise'
-
+gem 'bootstrap-sass', '~> 3.3.6'
 gem 'will_paginate', '~> 3.1.0'
 gem 'autoprefixer-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'

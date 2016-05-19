@@ -8,10 +8,9 @@
         <dl>
           <dt><%= product.title %></dt>
             <dd><%= truncate(strip_tags(product.description), length: 80) %></dd>
-			<dd>Genre: <%= product.category %></dd>
+			<dd>Genre: <%= product.category.try(:name)%>
         </dl>
-      </td>
-      <td class="list_actions">
+      </td>      <td class="list_actions">
         <%= link_to 'Show', product %><br/>
         <%= link_to 'Edit', edit_product_path(product) %><br/> <%= link_to 'Destroy', product, method: :delete,
             data: { confirm: 'Are you sure?' } %>

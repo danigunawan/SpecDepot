@@ -21,8 +21,8 @@
   </div>
   
   <div class="field">
-    <%= f.label :category %><br>
-	 <%= f.select :category, Category.names %>
+    <%= f.label :category_id %><br>
+	 <%= f.select :category_id, Category.pluck(:name, :id) %>
   </div>
 
   <div class="field">
