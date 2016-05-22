@@ -13,10 +13,12 @@ class StoreController < ApplicationController
       end
     else
       params[:search_category] == 'category' ?
-      @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").where("name LIKE ?", "%#{params[:search_query]}%"):
-      @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").where("title LIKE ?", "%#{params[:search_query]}%")
-      
+      @products = Product.joins("LEFT JOIN categories on products.category_id == categories.id").where("name LIKE ?", "%#{params[:search_query]}%"):
+      @products = Product.joins("LEFT JOIN categories on products.category_id == categories.id").where("title LIKE ?", "%#{params[:search_query]}%")
+            
       @products = @products.order("LOWER(name)","LOWER(title)", "price").paginate(page: params[:page], per_page: 4)
+    
+       puts "\n\n\n\n\n#{@products.map(&:category).inspect}\n\n\n\n\n"
     end
   end
 
