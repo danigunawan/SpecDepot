@@ -1,11 +1,21 @@
 source 'https://rubygems.org'
 
+group :development, :test do
+  gem 'rspec-rails'
+  gem 'cucumber-rails', :require => false
+  gem 'webrat'
+#  gem 'factory_girl'
+  gem 'factory_girl_rails'
+end
+
+
+
 gem 'devise'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'will_paginate', '~> 3.1.0'
 gem 'autoprefixer-rails'
 gem 'rspec'
-gem 'rspec-rails'
+#gem 'rspec-rails'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record

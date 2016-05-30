@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  
+  before_filter :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -58,10 +60,11 @@ class UsersController < ApplicationController
   # DELETE /users/1.json
   def destroy
     message = "User was not destroyed"
+    
+    @user = User.find(params[:id])    
     begin
-      if (@user.id != session[:user_id])
+      if @user != current_user
         @user.destroy
-        flash[:notice] = "User #{@user.name} deleted"
         message = "User was destroyed"
       end
     rescue StandardError => e

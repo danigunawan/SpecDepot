@@ -14,8 +14,6 @@
 <% cache ['store', Product.latest] do %>
   <% @products.each do |product| %>
   
-  <%= puts "Product Parameters: #{product.title}"%>
-  
    <% cache ['entry', product] do %>
     <div class="entry">
       <%= image_tag(product.image_url) %>
