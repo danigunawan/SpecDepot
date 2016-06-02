@@ -35,6 +35,7 @@ class ProductsController < ApplicationController
         format.html { redirect_to @product, notice: 'Product was successfully created.' }
         format.json { render :show, status: :created, location: @product }
       else
+        flash[:notice] = 'Product was not created.'
         format.html { render :new }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
@@ -47,9 +48,8 @@ class ProductsController < ApplicationController
     respond_to do |format|
         if @product.valid? && @product.update(product_params)
           format.html { redirect_to @product, notice: 'Product was successfully updated.' }
-          format.json { render :show, status: :ok, location: @product }
+          format.json { render status: :ok, location: @product }
         else
-          puts "\n\n\nIT ENTERS HERE!\n\n"
           flash[:notice] = 'Product was not valid'
           format.html { render :edit }
           format.json { render json: @product.errors, status: :unprocessable_entity }

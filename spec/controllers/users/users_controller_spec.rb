@@ -5,8 +5,8 @@ require 'rails_helper'
 describe UsersController do
 
   let(:user1) {FactoryGirl.create(:user)}
-  let(:user2) {FactoryGirl.create(:user, :name => 'Susan', :email => 'susan@email.com')}
-  let(:user3) {FactoryGirl.create(:user, :name => 'Fred', :email => 'fred@email.com')}
+  let(:user2) {FactoryGirl.create(:user)}
+  let(:user3) {FactoryGirl.create(:user)}
 
   before(:each) do
     sign_in user1
@@ -46,9 +46,12 @@ describe UsersController do
       expect(response).to render_template("index")
     end
     
-    it "loads a list of users ordered by name" do
-      array = [user1,user2,user3].sort_by{|user| [user.name.downcase, user.id]}                      
-      expect(assigns(:users)).to match_array(array)                      
+    it "loads a list of users ordered by name" do      
+      array = [user1,user2,user3].sort_by{|user| [user.name.downcase, user.id]}
+      users = assigns(:users)
+      (0..2).each do |n|
+        expect(users[n].name).to eq(array[n].name)
+      end
     end
     
   end

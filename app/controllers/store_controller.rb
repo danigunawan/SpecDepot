@@ -6,22 +6,16 @@ class StoreController < ApplicationController
 
   def index
     if params[:search_query].nil?
-      if params[:set_locale]
-        redirect_to store_url(locale: params[:set_locale])
-      else
+      # if params[:set_locale]
+ #        redirect_to store_url(locale: params[:set_locale])
+ #      else
         @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").order("LOWER(name)","LOWER(title)", "price").paginate(page: params[:page], per_page: 4)
-      end
+    #  end
     else
-
+      @search_category = params[:search_category]
       @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").
-                  where((params[:search_category] == "category") ? 
-                  'name LIKE ' + "'%#{params[:search_query]}%'" : 'title LIKE ' + "'%#{params[:search_query]}%'")
-    
-                  
-     # params[:search_category] == 'category' ?
-    #  @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").where("name LIKE ?", "%#{params[:search_query]}%"):
-    #  @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").where("title LIKE ?", "%#{params[:search_query]}%")
-            
+                  where((@search_category == "category") ? 
+                  'name LIKE ' + "'%#{params[:search_query]}%'" : 'title LIKE ' + "'%#{params[:search_query]}%'")     
       @products = @products.order("LOWER(name)","LOWER(title)", "price").paginate(page: params[:page], per_page: 4)
     end
   end

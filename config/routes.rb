@@ -35,13 +35,15 @@ Rails.application.routes.draw do
     post 'decrement', on: :member
   end
 
-  scope '(:locale)' do
-    resources :orders
-    resources :line_items
-    resources :carts
+
+  resources :orders
+  resources :line_items
+  resources :carts
+ # scope '(:locale)' do
+
 
     
-  end
+#  end
 
 root 'store#index', as: 'store', via: :all
 

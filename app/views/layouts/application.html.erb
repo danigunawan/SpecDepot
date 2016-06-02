@@ -9,13 +9,13 @@
 </head>
 <body class = '<%= controller.controller_name %> container-fluid'>
   <div id = 'banner' class = 'row'>
-    <%= form_tag store_path, class: 'locale collapse navbar-collapse navbar-ex1-collapse' do %>
+    <!-- <%= form_tag store_path, class: 'locale collapse navbar-collapse navbar-ex1-collapse' do %>
       <%= select_tag 'set_locale',
             options_for_select(LANGUAGES, I18n.locale.to_s),
             onchange: 'this.form.submit()' %>
       <%= submit_tag 'submit' %>
       <%= javascript_tag "$('.locale input').hide()" %>
-    <% end %>
+    <% end %> -->
     <%= image_tag("logo.png") %>
     <%= page_title %>
   </div>
