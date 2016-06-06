@@ -1,5 +1,7 @@
 FactoryGirl.define do
   factory :category do
-    name 'Fiction'
+    sequence :name do |n|
+      "Fiction#{n}"
+    end
   end
 end

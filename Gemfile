@@ -6,6 +6,9 @@ group :development, :test do
   gem 'webrat'
 #  gem 'factory_girl'
   gem 'factory_girl_rails'
+  gem 'shoulda-matchers'
+  gem 'capybara'
+  gem 'selenium-webdriver'
 end
 
 

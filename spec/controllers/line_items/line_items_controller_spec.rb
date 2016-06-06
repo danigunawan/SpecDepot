@@ -43,15 +43,13 @@ describe LineItemsController do
       end
       
       it "destroys line item" do
-        lineItem = assigns(:line_item)  
-        
-        post :decrement, :id => 1    
+        post :decrement, :id => 2    
         expect(LineItem.all.count).to eq(0)
       end
       
       it "decreases line item by 1" do
         post :create, :product_id => product1.id
-        post :decrement, :id => 1    
+        post :decrement, :id => 2    
         lineItem = assigns(:line_item)  
         expect(lineItem.quantity).to eq(1)
       end

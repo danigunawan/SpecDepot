@@ -4,13 +4,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
   validates :name, presence: true, uniqueness: true
-  validates :email, presence: true, uniqueness: true
+  validates :email, presence: true, uniqueness: true, case_sensitive: false
 
-  private
-
-    def ensure_an_admin_remains
-      if User.count.zero?
-        raise "Can't delete last user"
-      end
-    end
 end

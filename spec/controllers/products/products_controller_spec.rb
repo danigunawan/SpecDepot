@@ -41,16 +41,16 @@ describe ProductsController do
         end
     
         it "returns the product found" do
-          expect(assigns(:product)).to eq(Product.find(1))
+          expect(assigns(:product)).to eq(Product.find(product1.id))
         end
       end
       
       describe "GET #edit" do
-        before(:each) do
+        before(:each) do          
           get :edit, :id => product1.id
         end
         
-        it "checks if product exists" do
+        it "checks if product exists" do          
           expect(Product.exists?(product1.id)).to be true
         end
         
