@@ -1,6 +1,4 @@
 class StoreController < ApplicationController
-  skip_before_action :authorize
-
   include CurrentCart
   before_action :set_cart
 
@@ -16,6 +14,7 @@ class StoreController < ApplicationController
       @products = Product.joins("LEFT JOIN categories on products.category_id = categories.id").
                   where((@search_category == "category") ? 
                   'name LIKE ' + "'%#{params[:search_query]}%'" : 'title LIKE ' + "'%#{params[:search_query]}%'")     
+            
       @products = @products.order("LOWER(name)","LOWER(title)", "price").paginate(page: params[:page], per_page: 4)
     end
   end

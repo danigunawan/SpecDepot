@@ -5,8 +5,6 @@ Rails.application.routes.draw do
   devise_for :users
   get 'admin' => 'admin#index'
   controller :sessions do
-#    get 'login' => :new
-#    post 'login' => :create
     delete 'logout' => :destroy
   end
   
@@ -39,11 +37,6 @@ Rails.application.routes.draw do
   resources :orders
   resources :line_items
   resources :carts
- # scope '(:locale)' do
-
-
-    
-#  end
 
 root 'store#index', as: 'store', via: :all
 

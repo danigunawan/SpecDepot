@@ -40,16 +40,17 @@ describe LineItemsController do
       let!(:product1){FactoryGirl.create(:product)}
       before(:each) do
         post :create, :product_id => product1.id
+        @itemMade = LineItem.order("created_at").last    #gets the most recent line item made
       end
       
       it "destroys line item" do
-        post :decrement, :id => 2    
+        post :decrement, :id => @itemMade.id    
         expect(LineItem.all.count).to eq(0)
       end
       
       it "decreases line item by 1" do
         post :create, :product_id => product1.id
-        post :decrement, :id => 2    
+        post :decrement, :id => @itemMade.id    
         lineItem = assigns(:line_item)  
         expect(lineItem.quantity).to eq(1)
       end

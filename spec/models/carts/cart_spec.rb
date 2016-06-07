@@ -15,12 +15,14 @@ describe Cart do
   
     it "should decrement line item quantity" do      
       cartTest = FactoryGirl.create(:cart, line_items: [FactoryGirl.create(:line_item, quantity: 2)])
-      expect(cartTest.decrement_line_item_quantity(3).quantity).to eq(1)
+      itemMade = LineItem.order('created_at').last
+      expect(cartTest.decrement_line_item_quantity(itemMade.id).quantity).to eq(1)
     end
     
     it "should destroy line item" do      
       cartTest = FactoryGirl.create(:cart, line_items: [FactoryGirl.create(:line_item, quantity: 1)])
-      expect(LineItem.exists?(cartTest.decrement_line_item_quantity(3).id)).to be false
+      itemMade = LineItem.order('created_at').last
+      expect(LineItem.exists?(cartTest.decrement_line_item_quantity(itemMade.id).id)).to be false
     end
   
     it "should solve total price" do
