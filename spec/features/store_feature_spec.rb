@@ -61,12 +61,12 @@ feature "Store Interface" do
       expect(page).to have_content("Programming Ruby 1.9 & 2.0")
     end
   
-    context "shows selected product", js: true do
+    context "shows selected product" do
       before(:each) do
         find(:xpath, "//div[p[contains(.,'CoffeeScript')]]/h3/a").click
       end
       
-      scenario "displays product information" do
+      scenario "displays selected product information" do
         expect(page).to have_content("Title: CoffeeScript")
       end
       
@@ -76,5 +76,38 @@ feature "Store Interface" do
       end
     end
 
+    scenario "add product to cart" do
+      find(:xpath, "//div[p[contains(.,'CoffeeScript')]]/div/form/input").click
+      expect(page.has_css?("#cart")).to be true
+    end
+    
+    context "with product in cart", js: true do
+      before(:each) do
+        find(:xpath, "//div[p[contains(.,'CoffeeScript')]]/div/form/input").click
+        sleep 1
+      end
+      
+      scenario "decrement current item" do
+        find(:xpath, "//div[p[contains(.,'CoffeeScript')]]/div/form/input").click
+        find(:xpath, "//tr[contains(@id, 'current_item')]/td/form/input[contains(@class, 'btn-xs btn-circle')]").click
+        sleep 1
+        expect(LineItem.order("created_at").last.quantity).to eq(1)
+      end
+      
+      scenario "empty cart via decrement button" do
+        currentItem = LineItem.order("created_at").last
+        find(:xpath, "//tr[contains(@id, 'current_item')]/td/form/input[contains(@class, 'btn-xs btn-circle')]").click
+        sleep 1
+        expect(LineItem.exists?(currentItem.id)).to be false
+      end
+      
+      scenario "empty cart via empty cart button" do
+        currentItem = LineItem.order("created_at").last      
+        click_button "Empty Cart"
+        page.accept_confirm
+        sleep 1
+        expect(LineItem.exists?(currentItem.id)).to be false
+      end
+    end
 
 end
