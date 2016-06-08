@@ -4,8 +4,8 @@ require 'capybara/rspec'
 
 feature "Store Interface" do
 
-  let!(:category1) { FactoryGirl.create(:category) }
-  let!(:category2) { FactoryGirl.create(:category) }
+  let!(:category1) { FactoryGirl.create(:category, :name => "Educational") }
+  let!(:category2) { FactoryGirl.create(:category, :name => "Fiction") }
 
 
   let!(:product1){ FactoryGirl.create(:product, :title => 'CoffeeScript', 
@@ -20,20 +20,54 @@ feature "Store Interface" do
       :image_url => "rtp.jpg",
       :category_id => category1.id) }  
       
+  let!(:product4){ FactoryGirl.create(:product, :title => 'RandomLongTitleHere', 
+      :description => "Rails Test Prescriptions is a comprehensive guide to testing Rails applications, covering Test-Driven Development from both a theoretical perspective (why to test) and from a practical perspective (how to test effectively). It covers the core Rails testing tools and procedures for Rails 2 and Rails 3, and introduces popular add-ons, including Cucumber, Shoulda, Machinist, Mocha, and Rcov.",
+      :price => 11.00,
+      :image_url => "rtp.jpg",
+      :category_id => category1.id) }      
+      
   let!(:product3){ FactoryGirl.create(:product, :title => 'Programming Ruby 1.9 & 2.0', 
       :description => "Ruby is the fastest growing and most exciting dynamic language out there. If you need to get working programs delivered fast, you should add Ruby to your toolbox.",
       :price => 10.00,
       :image_url => "ruby.jpg",
       :category_id => category2.id) }    
-
+      
+  let!(:product5){ FactoryGirl.create(:product, :title => 'sadadadqewq', 
+      :description => "Ruby is the fastest growing and most exciting dynamic language out there. If you need to get working programs delivered fast, you should add Ruby to your toolbox.",
+      :price => 10.00,
+      :image_url => "ruby.jpg",
+      :category_id => category2.id) }       
+    
     before(:each) do
       visit "/"
     end
-
-    scenario "displays a list of products" do
-      expect(page).to have_content("CoffeeScript")
-      expect(page).to have_content("Rails Test Prescription")
-      expect(page).to have_content("Programming Ruby 1.9 & 2.0")
+    
+    context "displays 2 pages of products" do
+      scenario "displays these products on 1st page" do
+        expect(page).to have_content("CoffeeScript")
+        expect(page).to have_content("Rails Test Prescription")
+        expect(page).to have_content("Programming Ruby 1.9 & 2.0")
+        expect(page).to have_content("RandomLongTitleHere")
+        expect(page).not_to have_content("sadadadqewq")
+      end
+      
+      scenario "displays this product on 2nd page" do
+        first('.next_page').click
+        expect(page).not_to have_content("CoffeeScript")
+        expect(page).not_to have_content("Rails Test Prescription")
+        expect(page).not_to have_content("Programming Ruby 1.9 & 2.0")
+        expect(page).not_to have_content("RandomLongTitleHere")
+        expect(page).to have_content("sadadadqewq")
+      end
+      
+      scenario "displays this product on 2nd page" do
+        first('.previous_page').click
+        expect(page).to have_content("CoffeeScript")
+        expect(page).to have_content("Rails Test Prescription")
+        expect(page).to have_content("Programming Ruby 1.9 & 2.0")
+        expect(page).to have_content("RandomLongTitleHere")
+        expect(page).not_to have_content("sadadadqewq")
+      end
     end
     
     scenario "user searches for item via title" do
